@@ -23,12 +23,19 @@ app.use(express.urlencoded({ extended: true }));
 
 // Set up routes
 app.use('/api', routes);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Error handling middleware
 app.use((err, req, res, next) => {
-console.error(err.stack);
-res.status(500).send('Something went wrong!');
+  console.error(err.stack);
+  res.status(500).send('Something went wrong!');
 });
 
+// Set server port and listen for requests
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}.`);
+});
+
+//Set swagger Settings
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 module.exports = app;
