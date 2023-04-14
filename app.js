@@ -2,8 +2,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const { database } = require('./config');
 const routes = require('./routes');
-const swaggerUi = require('swagger-ui-express');
-const swaggerSpec = require('./swagger');
 
 const app = express();
 
@@ -32,10 +30,7 @@ app.use((err, req, res, next) => {
 
 // Set server port and listen for requests
 const port = process.env.PORT || 3000;
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}.`);
+app.listen(port,() => {
+  console.log(`Server is running on ${port}`);
 });
 
-//Set swagger Settings
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-module.exports = app;
